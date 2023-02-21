@@ -1,10 +1,12 @@
 import React from 'react';
 
 
-const fuelQuote = () => {
+export const fuelQuote = () => {
     return(
-        <div> hello world</div>
+        <div>
+        <h1>Login</h1>
+        <p>This is the login page.</p>
+      </div>
     );
 };
 
-export default fuelQuote;
