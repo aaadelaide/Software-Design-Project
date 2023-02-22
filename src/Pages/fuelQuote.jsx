@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 
 
-export const fuelQuote = () => {
+export const FuelQuote = (props) => {
+
     return(
-        <div>
-        <h1>Login</h1>
-        <p>This is the login page.</p>
+      <div className="auth-form-container">
+          <h1> Fuel Quote Form </h1>
+          <Link to="/userProfile">
+            <button className="link-btn">Back</button>
+          </Link>
       </div>
-    );
-};
+    )
+}
+
 
