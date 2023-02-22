@@ -4,6 +4,7 @@ import {Login} from './pages/Login';
 import {Register} from './pages/Register';
 import {ProfileManagement} from './pages/ProfileManagement';
 import { UserProfile } from './pages/UserProfile';
+import { FuelQuoteHistory } from './pages/FuelQuoteHistory';
 import './App.css';
   
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
                  <Route exact path='/register' element={< Register />}></Route>
                  <Route exact path='/profilemanagement' element={< ProfileManagement />}></Route>
                  <Route exact path='/userprofile' element={< UserProfile />}></Route>
+                 <Route exact path='/fuelquotehistory' element={< FuelQuoteHistory/>}></Route>
           </Routes>
           </div>
        </Router>

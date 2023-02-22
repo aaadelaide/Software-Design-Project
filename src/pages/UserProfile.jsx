@@ -31,8 +31,12 @@ export const UserProfile = (props) => {
                 <Link to="/profilemanagement">
                 <button className="link-btn">Edit Profile</button>
                 </Link>
-                <button className="link-btn" >Go to Fuel Quotes</button>
-                <button className="link-btn" >View Past Fuel Quotes</button>
+                <Link><button className="link-btn" >Go to Fuel Quotes</button></Link>
+                
+                <Link to="/fuelquotehistory">
+                    <button className="link-btn" >View Past Fuel Quotes</button>
+                </Link>
+                
                 <Link to="/">
                 <button className="link-btn">Log Out</button>
                 </Link>
