@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
-import {Login} from './pages/Login';
-import {Register} from './pages/Register';
-import {ProfileManagement} from './pages/ProfileManagement';
-import { UserProfile } from './pages/UserProfile';
-import { FuelQuoteHistory } from './pages/FuelQuoteHistory';
+import {Login} from './Pages/Login';
+import {Register} from './Pages/Register';
+import {ProfileManagement} from './Pages/ProfileManagement';
+import { UserProfile } from './Pages/UserProfile';
+import { FuelQuoteHistory } from './Pages/FuelQuoteHistory';
 import './App.css';
   
 class App extends Component {

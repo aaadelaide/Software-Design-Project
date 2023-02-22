@@ -1,6 +1,6 @@
+import { Button } from "@mui/material";
 import React, { useState } from "react";
-
-
+import { Link } from 'react-router-dom';
 
 export const FuelQuoteHistory = (props) => {
     return (
@@ -29,6 +29,9 @@ export const FuelQuoteHistory = (props) => {
                     <td>12</td>
                 </tr>
             </table> 
+            <Link to="/userprofile">
+                <button className="link-btn">Back</button>
+            </Link>
         </div>
     );
 }
