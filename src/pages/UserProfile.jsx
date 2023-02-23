@@ -8,7 +8,7 @@ export const UserProfile = (props) => {
     }
 
     return (
-            <div className="auth-form-container">
+            <div className="profile-container">
                 <h2>User Information</h2>
                 <table>
                     <tr>

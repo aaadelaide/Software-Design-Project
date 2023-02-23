@@ -13,6 +13,32 @@
   flex-direction: column;
 }
 
+.profile-form-container {
+  position: relative;
+  flex-direction: column;
+  display:grid;
+  height: flex;
+  width:500px;
+  background-color: #ffffff33;
+  grid-gap: 5px;
+  border-color: #0d0f11;
+  border-radius: 2.5%;
+
+}
+
+.profile-container {
+  position: relative;
+  flex-direction: column;
+  display:grid;
+  height: flex;
+  width:700px;
+  background-color: #ffffff33;
+  grid-gap: 5px;
+  border-color: #0d0f11;
+  border-radius: 2.5%;
+
+}
+
 .auth-form-container {
   padding: 5rem;
   border: 1px solid black;

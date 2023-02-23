@@ -1,7 +1,68 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
+import {useFormik} from "formik";
+
+const validateData = cusData =>{
+    const errors = {};
+    if(!cusData.FName){
+        errors.FName = "Please enter your first name."
+    } else if (cusData.FName.length > 50){
+        errors.FName = "Name cannot go over 50 characters."
+    }
+
+    if(!cusData.LName){
+        errors.LName = "Please enter your last name."
+    } else if (cusData.LName.length > 50){
+        errors.LName = "Name cannot go over 50 characters."
+    }
+
+    if(!cusData.address1){
+        errors.address1 = "Please enter your primary address."
+    } else if (cusData.address1.length > 100){
+        errors.address1 = "Address cannot go over 100 characters."
+    }
+
+    if(!cusData.city){
+        errors.city = "Please enter a city."
+    } else if (cusData.city.length > 100){
+        errors.city = "City cannot go over 100 characters."
+    }
+
+    if(!cusData.zipcode){
+        errors.zipcode = "Please enter a zipcode."
+    } else if (cusData.zipcode.length > 9){
+        errors.zipcode = "Zip code cannot go over 9 characters."
+    }
+    else if (cusData.zipcode.length < 5){
+        errors.zipcode = "Zip code cannot be under 5 characters."
+    }
+
+    if(!cusData.state){
+        errors.state = "Please select a state."
+    }     else if (cusData.state == ""){
+        errors.zipcode = "Please choose a state."
+    }
+
+    return errors;
+};
+
 
 export const ProfileManagement = (props) => {
+    const formik = useFormik({
+        initialValues:{
+            FName:'',
+            LName:'',
+            address1:'',
+            address2:'',
+            city:'',
+            zipcode:'',
+            state:''
+        },
+        validate:validateData,
+        onSubmit:values=>{
+            alert(JSON.stringify(values));
+        }
+    });
     const [firstname, setFN] = useState("");
     const [lastname, setLN] = useState("");
     const [address1, setAD1] = useState("");
@@ -14,23 +75,36 @@ export const ProfileManagement = (props) => {
     }
 
     return (
-        <div className="auth-form-container">
+        <div className="profile-form-container">
             <h2>Profile Edit</h2>
-            <form className="login-form" onSubmit={handleSubmit}>
-                <label htmlFor="firstname">First Name</label>
-                <input value={firstname} onChange={(event) => setFN(event.target.value)} type="firstname" placeholder="Your first name..." id="firstname" name="firstname" />
-                <label htmlFor="lastname">Last Name</label>
-                <input value={lastname} onChange={(event) => setLN(event.target.value)} type="lastname" placeholder="Your last name..." id="lastname" name="lastname" />
-                <label htmlFor="address1">Address 1</label>
-                <input value={address1} onChange={(event) => setAD1(event.target.value)} type="address1" placeholder="Your address.." id="address1" name="address1" />
-                <label htmlFor="address2">Address 2</label>
-                <input value={address2} onChange={(event) => setAD2(event.target.value)} type="address2" placeholder="Your apartment #..." id="address2" name="address2" />
-                <label htmlFor="city">City</label>
-                <input value={city} onChange={(event) => setCity(event.target.value)} type="city" placeholder="Your city..." id="city" name="city" />
-                <div>
-        <label htmlFor="email">
+            <label htmlFor="FName">First Name: </label>
+           <input type="text" name="FName" id="FName" value={formik.values.FName}
+                  onChange={formik.handleChange} onBlur={formik.handleBlur}></input>
+                  {formik.touched.FName && formik.errors.FName ? <span style={{color:'red'}}>{formik.errors.FName}</span> : null}
+
+                  <label htmlFor="LName">Last Name: </label>
+           <input type="text" name="LName" id="LName" value={formik.values.LName}
+                  onChange={formik.handleChange} onBlur={formik.handleBlur}></input>
+                  {formik.touched.LName && formik.errors.LName ? <span style={{color:'red'}}>{formik.errors.LName}</span> : null}
+
+                  <label htmlFor="address1">Address Line 1: </label>
+           <input type="text" name="address1" id="address1" value={formik.values.address1}
+                  onChange={formik.handleChange} onBlur={formik.handleBlur}></input>
+                  {formik.touched.address1 && formik.errors.address1 ? <span style={{color:'red'}}>{formik.errors.address1}</span> : null}
+
+                  <label htmlFor="address2">Address Line 2 (Optional): </label>
+           <input type="text" name="address2" id="address2" value={formik.values.address2}
+                  onChange={formik.handleChange} onBlur={formik.handleBlur}></input>
+
+                   <label htmlFor="city">City: </label>
+           <input type="text" name="city" id="city" value={formik.values.city}
+                  onChange={formik.handleChange} onBlur={formik.handleBlur}></input>
+                  {formik.touched.city && formik.errors.city ? <span style={{color:'red'}}>{formik.errors.city}</span> : null}
+
+               
+        <label htmlFor="state">
        State
-       <div>
+      <div>
        <select>
          <option value="AL">AL</option> <option value="AK">AK</option> <option value="AZ">AZ</option>
          <option value="AR">AR</option>
@@ -82,14 +156,19 @@ export const ProfileManagement = (props) => {
          <option value="WY">WY</option>
        </select>
        </div>
+
      </label>
-   </div>
-   <label htmlFor="zipcode">ZIP Code</label>
-                <input value={zipcode} onChange={(event) => setZC(event.target.value)} type="zipcode" placeholder="Your zip code..." id="zipcode" name="zipcode" />
-            <Link to="/userprofile">
+
+
+   <label htmlFor="zipcode">Zipcode: </label>
+           <input type="text" name="zipcode" id="zipcode" value={formik.values.zipcode}
+                  onChange={formik.handleChange} onBlur={formik.handleBlur}></input>
+                  {formik.touched.zipcode && formik.errors.zipcode ? <span style={{color:'red'}}>{formik.errors.zipcode}</span> : null}
+
                 <button type="submit">Confirm</button>
+                <Link to="/userprofile">
+                <button type="submit">Go Back</button>
                 </Link>
-            </form>
         </div>
     )
 }
