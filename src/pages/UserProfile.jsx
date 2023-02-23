@@ -29,12 +29,14 @@ export const UserProfile = (props) => {
                     <td>99507</td>
                 </table>
                 <Link to="/profilemanagement">
-                <button className="link-btn">Edit Profile</button>
+                    <button className="link-btn">Edit Profile</button>
                 </Link>
                 <Link to="/FuelQuote">
-                <button className="link-btn" >Go to Fuel Quotes</button>
+                    <button className="link-btn" >Go to Fuel Quotes</button>
                 </Link>
-                <button className="link-btn" >View Past Fuel Quotes</button>
+                <Link to="/fuelquotehistory">
+                    <button className="link-btn" >View Past Fuel Quotes</button>
+                </Link>
                 <Link to="/">
                 <button className="link-btn">Log Out</button>
                 </Link>

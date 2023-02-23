@@ -74,6 +74,24 @@ button {
   text-decoration: underline;
 }
 
+.table-fq-history {
+  border: 2px solid white;
+  width: 800px;
+  height: 200px;
+}
+
+.table-fq-hist-title {
+  border-bottom: 1px solid white;
+}
+
+.table-fq-hist-val {
+  text-align: center;
+}
+
+.table-fq-hist-val-row {
+  border-bottom: 1px solid white;
+}
+
 .quote-form {
   display: flex;
   flex-direction: column;
