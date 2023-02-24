@@ -4,7 +4,7 @@ import {Login} from './Pages/Login';
 import {Register} from './Pages/Register';
 import {ProfileManagement} from './Pages/ProfileManagement';
 import { UserProfile } from './Pages/UserProfile';
-import { FuelQuote } from './Pages/FuelQuote';
+import { FuelQuote } from './Pages/fuelQuote';
 import './App.css';
   
 class App extends Component {
