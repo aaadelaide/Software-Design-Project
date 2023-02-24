@@ -66,6 +66,7 @@ button {
   border-radius: 10px;
   cursor: pointer;
   color: #20aed0;
+  width: 100%;
 }
 
 .link-btn {
