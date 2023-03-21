@@ -40,9 +40,26 @@ export const FuelQuote = (props) => {
     setEstimatedCost(newEstimatedCost);
   }, [gallons, pricePerGallon]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Handle form submission here
+    try {
+      const response = await fetch('/fuelQuote', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          gallons: Number(gallons),
+          address: address,
+          deliveryDate: deliveryDate.toISOString(),
+          pricePerGallon: pricePerGallon,
+        }),
+      });
+      const data = await response.json();
+      console.log(data); // do something with the response data
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
@@ -81,16 +98,26 @@ export const FuelQuote = (props) => {
           <label className="price-per-gallon-label">{pricePerGallon}</label>
         </div>
         <br />
+        <br />
         <div className="price-per-gallon-container">
-          <label>Estimated Cost:</label>
-          <label className="price-per-gallon-label">${estimatedCost.toFixed(2)}</label>
+          <label>Price per Gallon:</label>
+          <label className="price-per-gallon-label">{pricePerGallon}</label>
         </div>
         <br />
-        <button type="submit">Submit</button>
+              <br />
+      <br />
+      <div className="price-per-gallon-container">
+        <label>Estimated Total:</label>
+        <label className="price-per-gallon-label">${estimatedCost.toFixed(2)}</label>
+      </div>
+      <br />
+      <button type="submit">Get Quote</button>
+      <br />
+      <br />
+      <Link to="/fuelQuotes">View Fuel Quotes</Link>
       </form>
-      <Link to="/userProfile">
-        <button className="link-btn">Back</button>
-      </Link>
     </div>
-  )
-}
+  );
+};
+
+export default FuelQuote;
