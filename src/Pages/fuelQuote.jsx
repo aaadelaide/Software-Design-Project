@@ -42,8 +42,9 @@ export const FuelQuote = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log('User inputs:', { gallons, address, deliveryDate, pricePerGallon });
     try {
-      const response = await fetch('/fuelQuote', {
+      const response = await fetch('http://localhost:8800/fuelQuotes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,12 +56,14 @@ export const FuelQuote = (props) => {
           pricePerGallon: pricePerGallon,
         }),
       });
+      console.log('Response:', response);
       const data = await response.json();
-      console.log(data); // do something with the response data
+      console.log('Data:', data); // do something with the response data
     } catch (error) {
       console.error('Error:', error);
     }
   };
+  
 
   return (
     <div className="auth-form-container">
