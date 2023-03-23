@@ -12,17 +12,16 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-app.use('./routes/fuelQuotes', fuelQuoteRouter);
-
-app.get('/fuelQuotes', (req, res) => {
-  res.sendStatus(200);
-});
+app.use('/fuelQuotes', fuelQuoteRouter);
 
 app.get('/', (req, res) => {
   res.json({ history: [3, 'Address', '02/24/2023', 4, '$12'] });
 });
 
-app.listen(8800, () => {
-  
+const port = 8800;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
-module.exports = app
+
+module.exports = app;

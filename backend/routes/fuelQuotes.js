@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-//const app = require('../index');
 
 // POST request handler for fuel quotes
 router.post('/', (req, res) => {
@@ -18,11 +17,11 @@ router.post('/', (req, res) => {
   // Do something with the data, e.g. calculate the fuel quote
   
   // Send the response back to the frontend
-  res.json({ message: 'recieved userInputs from frontend' });
+  res.json({ message: 'Received userInputs from frontend' });
 });
 
 // New route to display user inputs as JSON
-router.get('/fuelQuotes', (req, res) => {
+router.get('/', (req, res) => {
   // Return the user inputs in the request body as JSON
   res.json(req.body);
 });

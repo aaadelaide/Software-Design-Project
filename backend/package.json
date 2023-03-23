@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "coverage": "nyc --reporter=lcov --reporter=text npm test",
+    "coverage": "nyc --reporter=lcov --reporter=text --all npm test",
     "test": "jest --detectOpenHandles"
   },
   "keywords": [],
@@ -21,6 +21,7 @@
     "npm": "^9.6.2"
   },
   "devDependencies": {
+    "istanbul-reports": "^3.1.5",
     "jest": "^29.5.0",
     "nyc": "^15.1.0",
     "supertest": "^6.3.3"
