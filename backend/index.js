@@ -12,7 +12,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-app.use('/fuelQuotes', fuelQuoteRouter);
+app.use('./routes/fuelQuotes', fuelQuoteRouter);
 
 app.get('/fuelQuotes', (req, res) => {
   res.sendStatus(200);
@@ -23,5 +23,6 @@ app.get('/', (req, res) => {
 });
 
 app.listen(8800, () => {
-  console.log('Server started on port 8800!');
+  
 });
+module.exports = app
