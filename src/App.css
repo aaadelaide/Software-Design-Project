@@ -75,6 +75,16 @@ button {
   text-decoration: underline;
 }
 
+.pswd-help-text {
+  background: none;
+  color: white;
+  font-size: 12px;
+}
+
+.errorMSG {
+  color: red;
+}
+
 .table-fq-history {
   border: 2px solid white;
   width: 800px;
