@@ -1,19 +1,131 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
+<<<<<<< Updated upstream
 
 export const ProfileManagement = (props) => {
     const [firstname, setFN] = useState("");
     const [lastname, setLN] = useState("");
     const [address1, setAD1] = useState("");
     const [address2, setAD2] = useState("");
+=======
+import {useFormik} from "formik";
+
+
+export const ProfileManagement = (props) => {
+
+    const [firstname, FName] = useState("");
+    const [lastname, LName] = useState("");
+    const [address1, Address1] = useState("");
+    const [address2, Address2] = useState("");
+>>>>>>> Stashed changes
     const [city, setCity] = useState("");
-    const [zipcode, setZC] = useState("");
+    const [zipcode, setZip] = useState("");
+    const [state, setSt] = useState("");
+    const [submitting, setSubmitting] = useState(false);
+    let formIsValid_FName = false;
+    let formIsValid=false;
+    let formIsValid_LName = false;
+    let formIsValid_Addr1 = false;
+    let formIsValid_Addr2 = false;
+    let formIsValid_City= false;
+    let formIsValid_ZC = false;
+    let formIsValid_State = false;
+
+    let ValidateCheck = false;
 
     const handleSubmit = (event) => {
         event.preventDefault(); //prevents reloading of page
+        setSubmitting(true);
+        setTimeout(()=>{
+            setSubmitting(false);
+        },3000)
     }
 
+    const handleFNameChange = (event) => {
+        formIsValid_FName = true;
+        const value = event.target.value;
+        if (value <= 0 || value >= 50) {
+          formIsValid_FName = false;
+          FName(value);
+        } else {
+          FName(value);
+        }
+      };
+
+      const handleLNameChange = (event) => {
+        formIsValid = true;
+        const value = event.target.value;
+        if (value <= 0 || value >= 50) {
+          formIsValid = false;
+          LName(value);
+        } else {
+          LName(value);
+        }
+        return formIsValid;
+      };
+
+      const handleAddressChange = (event) => {
+        formIsValid = true;
+        const value = event.target.value;
+        if (value <= 0 || value >= 50) {
+          formIsValid = false;
+          Address1(value);
+        } else {
+          Address1(value);
+        }
+        return formIsValid;
+      };
+      const handleAddress2Change = (event) => {
+        formIsValid = true;
+        const value = event.target.value;
+        if (value >= 100) {
+          formIsValid = false;
+          Address2(value);
+        } else {
+          Address2(value);
+        }
+        return formIsValid;
+      };
+
+      const handleCityChange = (event) => {
+        formIsValid = true;
+        const value = event.target.value;
+        if (value <= 0 || value >= 100) {
+          formIsValid = false;
+          setCity(value);
+        } else {
+          setCity(value);
+        }
+        return formIsValid;
+      };
+
+      const handleStateChange = (event) => {
+        formIsValid = true;
+        const value = event.target.value;
+        if (value <= 0) {
+          formIsValid = false;
+          setSt(value);
+        } else {
+          setSt(value);
+        }
+        return formIsValid;
+      };
+
+      const handleZipChange = (event) => {
+        formIsValid = true;
+        const value = event.target.value;
+        if (value <= 0 || value < 5 || value > 9) {
+          formIsValid = false;
+          setZip(value);
+        } else {
+          setZip(value);
+        }
+        return formIsValid;
+      };
+
+
     return (
+<<<<<<< Updated upstream
         <div className="auth-form-container">
             <h2>Profile Edit</h2>
             <form className="login-form" onSubmit={handleSubmit}>
@@ -32,6 +144,50 @@ export const ProfileManagement = (props) => {
        State
        <div>
        <select>
+=======
+        <div className="profile-form-container">
+            <form onSubmit={handleSubmit} className="profile-form-container">
+            <h2>Profile Edit</h2>
+            <label htmlFor="FName">First Name: </label>
+           <input type="text" name="FName" id="FName" value={firstname}
+                  onChange={handleFNameChange}></input>
+                  {firstname.length <= 0 ? <span style={{color:'red'}}>{"* This is a required field."}</span> : null}
+                  {firstname.length >= 50 ? <span style={{color:'red'}}>{"* This exceeds the character limit."}</span> : null}
+                  {firstname.length > 0 && firstname.length < 50 ? formIsValid_FName = true : formIsValid_FName = false}
+
+                  <label htmlFor="LName">Last Name: </label>
+           <input type="text" name="LName" id="LName" value={lastname}
+                  onChange={handleLNameChange}></input>
+                  {lastname.length <= 0 ? <span style={{color:'red'}}>{"* This is a required field."}</span> : null}
+                  {lastname.length >= 50 ? <span style={{color:'red'}}>{"* This exceeds the character limit."}</span> : null}
+                  {lastname.length > 0 && lastname.length < 50 ? formIsValid_LName = true : formIsValid_LName = false}
+
+                   <label htmlFor="address1">Address Line 1: </label>
+           <input type="text" name="address1" id="address1" value={address1}
+                  onChange={handleAddressChange}></input>
+                  {address1.length <= 0 ? <span style={{color:'red'}}>{"* This is a required field."}</span> : null}
+                  {address1.length >= 50 ? <span style={{color:'red'}}>{"* This exceeds the character limit."}</span> : null}
+                  {address1.length > 0 && address1.length < 50 ? formIsValid_Addr1 = true : formIsValid_Addr1 = false}
+
+                 <label htmlFor="address2">Address Line 2 (Optional): </label>
+           <input type="text" name="address2" id="address2" value={address2}
+                  onChange={handleAddress2Change}></input>
+                  {address2.length >= 100 ? <span style={{color:'red'}}>{"* This exceeds the character limit."}</span> : formIsValid_Addr2=true}
+                  
+
+                    <label htmlFor="city">City: </label>
+           <input type="text" name="city" id="city" value={city}
+                  onChange={handleCityChange}></input>
+                  {city.length <= 0 ? <span style={{color:'red'}}>{"* This is a required field."}</span> : null}
+                  {city.length >= 100 ? <span style={{color:'red'}}>{"* This exceeds the character limit."}</span> : null}
+                  {city.length > 0 && city.length < 100 ? formIsValid_City = true : formIsValid_City = false}
+             
+        <label htmlFor="state">
+       State
+      <div>
+       <select name = "state" id="state" value={state} onChange = {handleStateChange}>
+        <option value =""></option>
+>>>>>>> Stashed changes
          <option value="AL">AL</option> <option value="AK">AK</option> <option value="AZ">AZ</option>
          <option value="AR">AR</option>
          <option value="CA">CA</option>
@@ -82,6 +238,7 @@ export const ProfileManagement = (props) => {
          <option value="WY">WY</option>
        </select>
        </div>
+<<<<<<< Updated upstream
      </label>
    </div>
    <label htmlFor="zipcode">ZIP Code</label>
@@ -90,6 +247,31 @@ export const ProfileManagement = (props) => {
                 <button type="submit">Confirm</button>
                 </Link>
             </form>
+=======
+       {state.length <= 0 ? <span style={{color:'red'}}>{"* This is a required field."}</span> : formIsValid_State=true}
+
+     </label>
+
+
+
+   <label htmlFor="zipcode">Zipcode: </label>
+           <input type="text" name="zipcode" id="zipcode" value={zipcode}
+                  onChange={handleZipChange}></input>
+                  {zipcode.length <= 0 ? <span style={{color:'red'}}>{"* This is a required field."}</span> : null}
+                  {zipcode.length > 0 && zipcode.length < 5 ? <span style={{color:'red'}}>{"* The zipcode must be at least five characters."}</span> : null}
+                  {zipcode.length >9 ? <span style={{color:'red'}}>{"* This exceeds the character limit."}</span> : null}
+                  {zipcode.length > 4 && zipcode.length < 9 ? formIsValid_ZC = true : formIsValid_ZC = false}
+
+                  {ValidateCheck = true ? formIsValid_LName && formIsValid_FName && formIsValid_Addr1 && formIsValid_Addr2 && formIsValid_City && formIsValid_State && formIsValid_ZC : false}
+
+                <Link to="/userprofile">
+                <button type="submit" disabled={!ValidateCheck}>Confirm</button>
+                </Link>
+                <Link to="/userprofile">
+                <button type="submit" >Go Back</button>
+                </Link> 
+                </form>
+>>>>>>> Stashed changes
         </div>
     )
 }
