@@ -1,13 +1,5 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
-<<<<<<< Updated upstream
-
-export const ProfileManagement = (props) => {
-    const [firstname, setFN] = useState("");
-    const [lastname, setLN] = useState("");
-    const [address1, setAD1] = useState("");
-    const [address2, setAD2] = useState("");
-=======
 import {useFormik} from "formik";
 
 
@@ -17,7 +9,6 @@ export const ProfileManagement = (props) => {
     const [lastname, LName] = useState("");
     const [address1, Address1] = useState("");
     const [address2, Address2] = useState("");
->>>>>>> Stashed changes
     const [city, setCity] = useState("");
     const [zipcode, setZip] = useState("");
     const [state, setSt] = useState("");
@@ -125,26 +116,6 @@ export const ProfileManagement = (props) => {
 
 
     return (
-<<<<<<< Updated upstream
-        <div className="auth-form-container">
-            <h2>Profile Edit</h2>
-            <form className="login-form" onSubmit={handleSubmit}>
-                <label htmlFor="firstname">First Name</label>
-                <input value={firstname} onChange={(event) => setFN(event.target.value)} type="firstname" placeholder="Your first name..." id="firstname" name="firstname" />
-                <label htmlFor="lastname">Last Name</label>
-                <input value={lastname} onChange={(event) => setLN(event.target.value)} type="lastname" placeholder="Your last name..." id="lastname" name="lastname" />
-                <label htmlFor="address1">Address 1</label>
-                <input value={address1} onChange={(event) => setAD1(event.target.value)} type="address1" placeholder="Your address.." id="address1" name="address1" />
-                <label htmlFor="address2">Address 2</label>
-                <input value={address2} onChange={(event) => setAD2(event.target.value)} type="address2" placeholder="Your apartment #..." id="address2" name="address2" />
-                <label htmlFor="city">City</label>
-                <input value={city} onChange={(event) => setCity(event.target.value)} type="city" placeholder="Your city..." id="city" name="city" />
-                <div>
-        <label htmlFor="email">
-       State
-       <div>
-       <select>
-=======
         <div className="profile-form-container">
             <form onSubmit={handleSubmit} className="profile-form-container">
             <h2>Profile Edit</h2>
@@ -187,7 +158,6 @@ export const ProfileManagement = (props) => {
       <div>
        <select name = "state" id="state" value={state} onChange = {handleStateChange}>
         <option value =""></option>
->>>>>>> Stashed changes
          <option value="AL">AL</option> <option value="AK">AK</option> <option value="AZ">AZ</option>
          <option value="AR">AR</option>
          <option value="CA">CA</option>
@@ -238,16 +208,6 @@ export const ProfileManagement = (props) => {
          <option value="WY">WY</option>
        </select>
        </div>
-<<<<<<< Updated upstream
-     </label>
-   </div>
-   <label htmlFor="zipcode">ZIP Code</label>
-                <input value={zipcode} onChange={(event) => setZC(event.target.value)} type="zipcode" placeholder="Your zip code..." id="zipcode" name="zipcode" />
-            <Link to="/userprofile">
-                <button type="submit">Confirm</button>
-                </Link>
-            </form>
-=======
        {state.length <= 0 ? <span style={{color:'red'}}>{"* This is a required field."}</span> : formIsValid_State=true}
 
      </label>
@@ -271,7 +231,6 @@ export const ProfileManagement = (props) => {
                 <button type="submit" >Go Back</button>
                 </Link> 
                 </form>
->>>>>>> Stashed changes
         </div>
     )
 }
