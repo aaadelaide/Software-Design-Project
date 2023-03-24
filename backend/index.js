@@ -1,5 +1,7 @@
 const express = require('express');
 const fuelQuoteRouter = require('./routes/fuelQuotes');
+const authRouter = require('./routes/auth');
+const createAcctRouter = require('./routes/createAcct');
 
 const app = express();
 
@@ -13,6 +15,18 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 app.use('/fuelQuotes', fuelQuoteRouter);
+app.use('/auth', authRouter);
+app.use('/createAcct', createAcctRouter)
+
+app.get('/fuelQuotes', (req, res) => {
+  res.sendStatus(200);
+});
+app.get('/auth', (req, res) => {
+  res.sendStatus(200);
+});
+app.get('/createAcct', (req, res) => {
+  res.sendStatus(200);
+});
 
 app.get('/', (req, res) => {
   res.json({ history: [3, 'Address', '02/24/2023', 4, '$12'] });
