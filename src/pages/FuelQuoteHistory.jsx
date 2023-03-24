@@ -3,16 +3,13 @@ import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 
 export const FuelQuoteHistory = (props) => {
-    const [backendData, setBackendData] = useState([])
+    const [historyRecords, setHistoryRecords] = useState([]);
 
-    useEffect(()=>{
-        fetch("/api").then(
-            response => response.json()
-        ).then (
-            data => {
-                setBackendData(JSON.parse(data.history))
-            }
-        )
+    useEffect(() => {
+        fetch('http://localhost:8800/fuelquotehistory')
+        .then(response => response.json())
+        .then(data => setHistoryRecords(data))
+        .catch(err => console.log(err))
     }, [])
 
     return (
@@ -29,13 +26,13 @@ export const FuelQuoteHistory = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {backendData.map((data, index) => (
-                        <tr key={index} className="table-fq-hist-val-row">
-                            <td className="table-fq-hist-val">{data.gallonsRequested}</td>
-                            <td>{data.deliveryAddress}</td>
-                            <td>{data.deliveryDate}</td>
-                            <td>{data.suggestedPricePerGallon}</td>
-                            <td>{data.totalAmountDue}</td>
+                    {historyRecords.map((list, index) => (
+                        <tr className="table-fq-hist-val-row">
+                            <td className="table-fq-hist-val">{list.gallonsRequested}</td>
+                            <td>{list.deliveryAddress}</td>
+                            <td>{list.deliveryDate}</td>
+                            <td>{list.suggestedPricePerGallon}</td>
+                            <td>{list.totalAmountDue}</td>
                         </tr>
                     ))}
                 </tbody>

@@ -1,5 +1,6 @@
 const express = require('express');
 const fuelQuoteRouter = require('./routes/fuelQuotes');
+const fuelQuoteHistoryRouter = require('./routes/fuelQuoteHistory')
 
 const app = express();
 
@@ -13,14 +14,8 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 app.use('/fuelQuotes', fuelQuoteRouter);
+app.use('/fuelquotehistory', fuelQuoteHistoryRouter)
 
-app.get('/fuelQuotes', (req, res) => {
-  res.sendStatus(200);
-});
-
-app.get('/', (req, res) => {
-  res.json({ history: [3, 'Address', '02/24/2023', 4, '$12'] });
-});
 
 app.listen(8800, () => {
   console.log('Server started on port 8800!');
