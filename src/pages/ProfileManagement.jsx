@@ -164,8 +164,8 @@ export const ProfileManagement = (props) => {
            <input type="text" name="address1" id="address1" value={address1}
                   onChange={handleAddressChange}></input>
                   {address1.length <= 0 ? <span style={{color:'red'}}>{"* This is a required field."}</span> : null}
-                  {address1.length >= 50 ? <span style={{color:'red'}}>{"* This exceeds the character limit."}</span> : null}
-                  {address1.length > 0 && address1.length < 50 ? formIsValid_Addr1 = true : formIsValid_Addr1 = false}
+                  {address1.length >= 100 ? <span style={{color:'red'}}>{"* This exceeds the character limit."}</span> : null}
+                  {address1.length > 0 && address1.length < 100 ? formIsValid_Addr1 = true : formIsValid_Addr1 = false}
 
                  <label htmlFor="address2">Address Line 2 (Optional): </label>
            <input type="text" name="address2" id="address2" value={address2}
