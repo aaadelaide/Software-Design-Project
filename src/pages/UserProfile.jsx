@@ -1,11 +1,20 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
+import { useEffect } from "react";
 
 export const UserProfile = (props) => {
 
-    const handleSubmit = (event) => {
-        event.preventDefault(); //prevents reloading of page
-    }
+    const [names, setData] = useState([])
+
+   const getBodyData = async()=>{
+    const response = await fetch("http://localhost:8800/ProfileManagement");
+    response.json().then((res)=> setData(res));
+   };
+
+   useEffect(()=>{
+    getBodyData();
+   }, []);
+
 
     return (
             <div className="profile-container">
@@ -20,13 +29,13 @@ export const UserProfile = (props) => {
                         <th>State</th>
                         <th>Zipcode</th>
                     </tr>
-                    <td>John</td>
-                    <td>Smith</td>
-                    <td>312 Calais Way</td>
-                    <td>Apt #231</td>
-                    <td>Houston</td>
-                    <td>TX</td>
-                    <td>99507</td>
+                    <td>{names.firstname}</td>
+                    <td>{names.lastname}</td>
+                    <td>{names.address1}</td>
+                    <td>{names.address2}</td>
+                    <td>{names.city}</td>
+                    <td>{names.state}</td>
+                    <td>{names.zipcode}</td>
                 </table>
                 <Link to="/profilemanagement">
                     <button className="link-btn">Edit Profile</button>
