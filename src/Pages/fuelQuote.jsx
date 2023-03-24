@@ -111,7 +111,7 @@ export const FuelQuote = (props) => {
       <button type="submit">Get Quote</button>
       <br />
       <br />
-      <Link to="/">Go Back</Link>
+      <Link to="/userprofile">Go Back</Link>
       </form>
     </div>
   );
