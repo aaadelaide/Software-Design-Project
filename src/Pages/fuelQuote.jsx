@@ -102,12 +102,6 @@ export const FuelQuote = (props) => {
         </div>
         <br />
         <br />
-        <div className="price-per-gallon-container">
-          <label>Price per Gallon:</label>
-          <label className="price-per-gallon-label">{pricePerGallon}</label>
-        </div>
-        <br />
-              <br />
       <br />
       <div className="price-per-gallon-container">
         <label>Estimated Total:</label>
@@ -117,7 +111,7 @@ export const FuelQuote = (props) => {
       <button type="submit">Get Quote</button>
       <br />
       <br />
-      <Link to="/fuelQuotes">View Fuel Quotes</Link>
+      <Link to="/">Go Back</Link>
       </form>
     </div>
   );

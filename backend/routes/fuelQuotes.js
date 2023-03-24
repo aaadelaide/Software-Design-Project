@@ -8,14 +8,20 @@ router.post('/', (req, res) => {
 
   console.log('User inputs:', req.body);
   
+  // Check for missing required fields
+  if (!gallons || !address || !deliveryDate || !pricePerGallon) {
+    res.status(400).json({ error: 'Missing required fields' });
+    return;
+  }
+
   // Do something with the data, e.g. calculate the fuel quote
   
   // Send the response back to the frontend
-  res.json({ message: 'got it' });
+  res.json({ message: 'Received userInputs from frontend' });
 });
 
 // New route to display user inputs as JSON
-router.get('/userInputs', (req, res) => {
+router.get('/', (req, res) => {
   // Return the user inputs in the request body as JSON
   res.json(req.body);
 });
