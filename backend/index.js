@@ -21,12 +21,13 @@ app.use('/auth', authRouter);
 app.use('/createAcct', createAcctRouter);
 app.use('/ProfileManagement',editAcctRouter);
 app.use('/fuelquotehistory', fuelQuoteHistoryRouter)
-app.get('/auth', (req, res) => {
-  res.sendStatus(200);
-});
-app.get('/createAcct', (req, res) => {
-  res.sendStatus(200);
-});
+
+// app.get('/auth', (req, res) => {
+//   res.sendStatus(200);
+// });
+// app.get('/createAcct', (req, res) => {
+//   res.sendStatus(200);
+// });
 
 app.get('/', (req, res) => {
   res.json({ history: [3, 'Address', '02/24/2023', 4, '$12'] });
