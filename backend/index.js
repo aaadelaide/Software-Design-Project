@@ -3,6 +3,7 @@ const fuelQuoteRouter = require('./routes/fuelQuotes');
 const authRouter = require('./routes/auth');
 const createAcctRouter = require('./routes/createAcct');
 const editAcctRouter = require('./routes/ProfileManagement');
+const fuelQuoteHistoryRouter = require('./routes/fuelQuoteHistory')
 
 const app = express();
 
@@ -19,17 +20,11 @@ app.use('/fuelQuotes', fuelQuoteRouter);
 app.use('/auth', authRouter);
 app.use('/createAcct', createAcctRouter);
 app.use('/ProfileManagement',editAcctRouter);
-
-app.get('/fuelQuotes', (req, res) => {
-  res.sendStatus(200);
-});
+app.use('/fuelquotehistory', fuelQuoteHistoryRouter)
 app.get('/auth', (req, res) => {
   res.sendStatus(200);
 });
 app.get('/createAcct', (req, res) => {
-  res.sendStatus(200);
-});
-app.get('/ProfileManagement', (req, res) => {
   res.sendStatus(200);
 });
 
@@ -37,10 +32,13 @@ app.get('/', (req, res) => {
   res.json({ history: [3, 'Address', '02/24/2023', 4, '$12'] });
 });
 
+
 const port = 8800;
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+
 
 module.exports = app;
