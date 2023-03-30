@@ -14,7 +14,7 @@ describe('authRouter', () => {
           .post('/auth')
           .send({
             user: "noah@gmail.com",
-            password: "Pass@UH!24"
+            password: "Pass@UH24!"
           });
         
         expect(res.body).toHaveProperty('message');
@@ -25,7 +25,7 @@ describe('authRouter', () => {
         const res = await request(app)
           .post('/auth')
           .send({
-            user: "noah2@gmail.com",
+            user: "emailwhichisnotindb@gmail.com",
             password: "Pass@UH!24"
           });
         
@@ -49,7 +49,7 @@ describe('authRouter', () => {
         const res = await request(app)
           .post('/auth')
           .send({
-            user: "noah2@gmail.com"
+            user: "noah3@gmail.com"
           });
   
         expect(res.statusCode).toEqual(400);
