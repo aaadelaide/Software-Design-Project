@@ -58,6 +58,7 @@ router.post('/', (req, res) => {
 
     router.get('/', (req, res) => {
         //Return the user inputs in the request body as JSON
+        // When the data is actually able to be stored, call it to put in here
         console.log("Sending client data.")
        res.json({firstname: "Maria", lastname:"Smith", address1: "628 Blueberry Way", address2: "", city: "Anchorage", state: "AK", zipcode: "99005"});
       });

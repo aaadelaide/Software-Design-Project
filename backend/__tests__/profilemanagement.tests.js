@@ -25,7 +25,7 @@ describe('POST /', () => {
     expect(res.body.message).toEqual('valid');
   });
 
-  it('should return a 200 statuss code and invalid firstname length', async () =>{
+  it('should return a 200 statuss code', async () =>{
     const res = await request(app)
     .post('/')
     .send({
@@ -59,7 +59,7 @@ it('should return a 200 statuss code and invalid firstname length', async () =>{
   expect(res.body.message).toBe('no good');
 });
 
-it('should return a 200 statuss code and invalid firstname length', async () =>{
+it('should return a 200 status code and that it is no good', async () =>{
     const res = await request(app)
     .post('/')
     .send({
