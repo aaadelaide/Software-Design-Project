@@ -27,7 +27,7 @@ export const Login = (props) => {
             const data = await response.json();
             console.log('Data:', data); // do something with the response data
             if (data.message == 'valid') {
-                navigate('/userprofile');
+                navigate(`/userprofile?email=${email}`);
             } else {
                 throw "Incorrect email or password";
             }

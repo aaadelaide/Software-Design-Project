@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useEffect } from "react";
 
 export const UserProfile = (props) => {
-
+    const location = useLocation();
     const [names, setData] = useState([])
+    const searchParams = new URLSearchParams(location.search);
+    const email = searchParams.get('email');
+    
 
-   const getBodyData = async()=>{
-    const response = await fetch("http://localhost:8800/ProfileManagement");
-    response.json().then((res)=> setData(res));
-   };
+    const getBodyData = async() => {
+        const response = await fetch(`http://localhost:8800/ProfileManagement?email=${email}`);
+        response.json().then((res) => setData(res));
+    };
 
    useEffect(()=>{
     getBodyData();
@@ -37,9 +40,10 @@ export const UserProfile = (props) => {
                     <td>{names.state}</td>
                     <td>{names.zipcode}</td>
                 </table>
-                <Link to="/profilemanagement">
-                    <button className="link-btn">Edit Profile</button>
-                </Link>
+                <Link to={`/profilemanagement?email=${email}`}>
+  <button className="link-btn">Edit Profile</button>
+</Link>
+
                 <Link to="/FuelQuote">
                     <button className="link-btn" >Go to Fuel Quotes</button>
                 </Link>

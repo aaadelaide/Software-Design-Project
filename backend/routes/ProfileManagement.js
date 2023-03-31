@@ -1,12 +1,14 @@
-
 const express = require('express');
 const router = express.Router();
+const mysql = require('mysql');
+const myconnection = require('../connection');
 
 router.post('/', (req, res) => {
     console.log('Inside the profile edit post request handler');
-    const { firstname, lastname, address1, address2, city, zipcode, state, ValidateCheck } = req.body;
+    const { firstname, lastname, address1, address2, city, zipcode, state, ValidateCheck, email } = req.body;
     let innerValidation = true;
     console.log('User inputs:', req.body);
+    console.log(email);
 
     if(firstname.length > 50 || firstname.length <= 0){
         innerValidation = false;
@@ -49,19 +51,32 @@ router.post('/', (req, res) => {
     if (ValidateCheck == true && innerValidation == true) {
         msg = 'valid';
         console.log(msg);
+
+        // Here we will execute the insert statement to add user info to the database
+        const query = `UPDATE accounts SET firstname = ?, lastname = ?, address1 = ?, address2 = ?, city = ?, state = ?, zipcode = ? WHERE email = ?`;
+        const values = [firstname, lastname, address1, address2, city, state, zipcode, email];
+
+        myconnection.query(query, values, (err, result) => {
+            if (err) throw err;
+            console.log('User info added to database:', result);
+        });
     } else {
         msg = 'no good'
         console.log(msg);
     }
     res.json({message: msg});
-})
+});
 
-    router.get('/', (req, res) => {
-        //Return the user inputs in the request body as JSON
-        // When the data is actually able to be stored, call it to put in here
-        console.log("Sending client data.")
-       res.json({firstname: "Maria", lastname:"Smith", address1: "628 Blueberry Way", address2: "", city: "Anchorage", state: "AK", zipcode: "99005"});
-      });
-
+router.get('/', (req, res) => {
+    const email = req.query.email;
+    myconnection.query(`SELECT * FROM accounts WHERE email = '${email}'`, function(error, results, fields) {
+      if (error) throw error;
+      const { firstname, lastname, address1, address2, city, state, zipcode } = results[0];
+      console.log(results[0]);
+      res.json({ firstname, lastname, address1, address2, city, state, zipcode });
+    });
+  });
+  
+  
 
 module.exports = router;

@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
-
+import { useEffect } from "react";
 
 
 export const ProfileManagement = (props) => {
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const email = searchParams.get('email');
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
     const [firstname, FName] = useState("");
@@ -28,7 +31,7 @@ export const ProfileManagement = (props) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('User inputs:', { firstname, lastname, address1, address2, city, state, zipcode });
+        console.log('User inputs:', { firstname, lastname, address1, address2, city, state, zipcode, email });
         try {
           const response = await fetch('http://localhost:8800/ProfileManagement', {
             method: 'POST',
@@ -44,6 +47,7 @@ export const ProfileManagement = (props) => {
                 state: state,
                 zipcode: zipcode,
                 ValidateCheck: ValidateCheck,
+                email: email,
             }),
           });
           console.log('Response:', response);
@@ -51,7 +55,7 @@ export const ProfileManagement = (props) => {
           console.log('Data:', data);
           if (data.message == 'valid') {
             console.log(data.firstname)
-            navigate("/UserProfile")
+            navigate(`/userprofile?email=${email}`);
           }// do something with the response data
         } catch (error) {
           console.error('Error:', error);
@@ -141,6 +145,15 @@ export const ProfileManagement = (props) => {
         return formIsValid;
       };
 
+      const [names, setData] = useState([]);
+      const getBodyData = async() => {
+        const response = await fetch(`http://localhost:8800/ProfileManagement?email=${email}`);
+        response.json().then((res) => setData(res));
+    };
+
+   useEffect(()=>{
+    getBodyData();
+   }, []);
 
     return (
         <div className="profile-form-container">
@@ -253,9 +266,9 @@ export const ProfileManagement = (props) => {
 
                 <button type="submit" >Confirm</button>
 
-                <Link to="/userprofile">
-                <button type="submit" >Go Back</button>
-                </Link> 
+                <Link to={`/userprofile?email=${email}`}>
+  <button typee="submit">Go Back</button>
+</Link>
                 </form>
         </div>
     )
