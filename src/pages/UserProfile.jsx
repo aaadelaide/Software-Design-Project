@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const UserProfile = (props) => {
+    const navigate = useNavigate();
     const location = useLocation();
     const [names, setData] = useState([])
     const searchParams = new URLSearchParams(location.search);
@@ -17,6 +19,10 @@ export const UserProfile = (props) => {
    useEffect(()=>{
     getBodyData();
    }, []);
+
+    if(names.message == "undefined"){
+        navigate(`/ProfileManagement?email=${email}`);
+    }
 
 
     return (

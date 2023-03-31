@@ -9,9 +9,5 @@ const connection = mysql.createPool({
     port: "3306"             // port name, "3306" by default
   })
 
-  connection.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected to DB!");
-  });
 
 module.exports = connection

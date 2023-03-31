@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mysql = require('mysql');
 const myconnection = require('../connection');
+const { NULL } = require('mysql/lib/protocol/constants/types');
 
 router.post('/', (req, res) => {
     console.log('Inside the profile edit post request handler');
@@ -53,8 +54,8 @@ router.post('/', (req, res) => {
         console.log(msg);
 
         // Here we will execute the insert statement to add user info to the database
-        const query = `UPDATE accounts SET firstname = ?, lastname = ?, address1 = ?, address2 = ?, city = ?, state = ?, zipcode = ? WHERE email = ?`;
-        const values = [firstname, lastname, address1, address2, city, state, zipcode, email];
+        const query = `INSERT INTO ClientInformation (firstname, lastname, address1, address2, city, state, zipcode, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+        const values = [firstname, lastname, address1, address2, city, state, zipcode, email];        
 
         myconnection.query(query, values, (err, result) => {
             if (err) throw err;
@@ -69,11 +70,16 @@ router.post('/', (req, res) => {
 
 router.get('/', (req, res) => {
     const email = req.query.email;
-    myconnection.query(`SELECT * FROM accounts WHERE email = '${email}'`, function(error, results, fields) {
-      if (error) throw error;
+    myconnection.query(`SELECT * FROM ClientInformation WHERE email = '${email}'`, function(error, results, fields) {
+        if(results[0]!=undefined){
       const { firstname, lastname, address1, address2, city, state, zipcode } = results[0];
       console.log(results[0]);
-      res.json({ firstname, lastname, address1, address2, city, state, zipcode });
+      res.json({ message: "defined", firstname, lastname, address1, address2, city, state, zipcode });
+        }
+        else{
+            console.log("currently undefined");
+            res.json({message: "undefined"});
+        }
     });
   });
   
