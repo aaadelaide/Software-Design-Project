@@ -20,6 +20,7 @@ describe('POST /', () => {
         state: 'CA',
         zipcode: '77006',
         ValidateCheck: true,
+        email: 'gabrielPagonzalez@gmail.com',
       });
     expect(res.statusCode).toEqual(200);
     expect(res.body.message).toEqual('valid');
@@ -37,6 +38,7 @@ describe('POST /', () => {
       state: 'CA',
       zipcode: '123',
       ValidateCheck: true,
+      email: 'gabrielLdwLLgonzalez@gmail.com',
     });
   expect(res.statusCode).toBe(200);
   expect(res.body.message).toBe('no good');
@@ -54,6 +56,7 @@ it('should return a 200 statuss code and invalid firstname length', async () =>{
       state: 'CA',
       zipcode: '123',
       ValidateCheck: true,
+      email: 'janieeeeedee@gmail.com',
     });
   expect(res.statusCode).toBe(200);
   expect(res.body.message).toBe('no good');
@@ -71,6 +74,7 @@ it('should return a 200 status code and that it is no good', async () =>{
       state: '',
       zipcode: '1232332322',
       ValidateCheck: true,
+      email: 'gabrielBDwAHDgonzalez@gmail.com',
     });
   expect(res.statusCode).toBe(200);
   expect(res.body.message).toBe('no good');
@@ -89,6 +93,7 @@ it('should return a 200 status code and that it is no good', async () =>{
         state: 'AK',
         zipcode: '99005',
         ValidateCheck: false,
+        email: 'gabrielBAddSSADgonzalez@gmail.com',
       });
     expect(res.statusCode).toEqual(200);
     expect(res.body.message).toEqual('no good');
@@ -96,18 +101,57 @@ it('should return a 200 status code and that it is no good', async () =>{
 });
 
 describe('GET /', () => {
-  it('should return user inputs as JSON + 200 status message', async () => {
-    const res = await request(app).get('/');
+  it('should return user inputs as JSON + 200 status message + defined message', async () => {
+    await request(app)
+      .post('/')
+      .send({
+        firstname: 'Gabriel',
+        lastname: 'Gonzales',
+        address1: '689 Dream Street',
+        address2: '',
+        city: 'San Francisco',
+        state: 'CA',
+        zipcode: '77006',
+        ValidateCheck: true,
+        email: 'gabrielHAaSSAHgonzalez@gmail.com',
+      });
+    const res = await request(app).get('/?email=gabrielBgonzalez@gmail.com');
     expect(res.statusCode).toEqual(200);
     expect(res.body).toEqual({
-      firstname: 'Maria',
-      lastname: 'Smith',
-      address1: '628 Blueberry Way',
+      message: 'defined',
+      firstname: 'Gabriel',
+      lastname: 'Gonzales',
+      address1: '689 Dream Street',
       address2: '',
-      city: 'Anchorage',
-      state: 'AK',
-      zipcode: '99005',
+      city: 'San Francisco',
+      state: 'CA',
+      zipcode: '77006',
     });
   });
 });
+
+describe('GET /', () => {
+  it('it should return an undefined message', async () => {
+    await request(app)
+      .post('/')
+      .send({
+        firstname: 'Gabriel',
+        lastname: 'Gonzales',
+        address1: '689 Dream Street',
+        address2: '',
+        city: 'San Francisco',
+        state: 'CA',
+        zipcode: '77006',
+        ValidateCheck: true,
+        email: '',
+      });
+    const res = await request(app).get('/');
+    expect(res.body).toEqual({
+      message: 'undefined',
+    });
+  });
+});
+
+
+
 
