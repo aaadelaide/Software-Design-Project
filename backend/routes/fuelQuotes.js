@@ -9,7 +9,7 @@ const connection = require('../connection')
 router.post('/', (req, res) => {
   console.log('Inside fuelQuote post request handler');
   const {gallons, address, deliveryDate, pricePerGallon } = req.body;
-  const { email } = req.query;
+  const email = req.query.email;
 
   console.log('User inputs:', req.body);
   
