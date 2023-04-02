@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from 'react-router-dom';
-
+import moment from "moment";
 export const FuelQuoteHistory = (props) => {
     const [historyRecords, setHistoryRecords] = useState([]);
 
@@ -10,7 +10,7 @@ export const FuelQuoteHistory = (props) => {
     const email = searchParams.get('email');
 
     useEffect(() => {
-        fetch('http://localhost:8800/fuelquotehistory')
+        fetch(`http://localhost:8800/fuelquotehistory?email=${email}`)
         .then(response => response.json())
         .then(data => setHistoryRecords(data))
         .catch(err => console.log(err))
@@ -32,11 +32,11 @@ export const FuelQuoteHistory = (props) => {
                 <tbody>
                     {historyRecords.map((list, index) => (
                         <tr className="table-fq-hist-val-row">
-                            <td className="table-fq-hist-val">{list.gallonsRequested}</td>
-                            <td>{list.deliveryAddress}</td>
-                            <td>{list.deliveryDate}</td>
-                            <td>{list.suggestedPricePerGallon}</td>
-                            <td>{list.totalAmountDue}</td>
+                            <td className="table-fq-hist-val">{list.gallons}</td>
+                            <td>{list.address}</td>
+                            <td>{moment(list.deliveryDate).utc().format('MM-DD-YYYY')}</td>
+                            <td>{list.pricePerGallon}</td>
+                            <td>{list.totalAmount}</td>
                         </tr>
                     ))}
                 </tbody>
