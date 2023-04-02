@@ -1,23 +1,26 @@
 const express = require('express');
 const router = express.Router();
+const mysql = require('mysql');
+const connection = require('../connection')
 
 // POST request handler for fuel quotes
 router.post('/', (req, res) => {
   console.log('Inside fuelQuote post request handler');
-  const { gallons, address, deliveryDate, pricePerGallon } = req.body;
+  const { email, gallons, address, deliveryDate, pricePerGallon } = req.body;
 
   console.log('User inputs:', req.body);
   
   // Check for missing required fields
-  if (!gallons || !address || !deliveryDate || !pricePerGallon) {
+  if (!email || !gallons || !address || !deliveryDate || !pricePerGallon) {
     res.status(400).json({ error: 'Missing required fields' });
     return;
   }
 
-  // Do something with the data, e.g. calculate the fuel quote
-  
-  // Send the response back to the frontend
-  res.json({ message: 'Received userInputs from frontend' });
+  connection.query('INSERT INTO fuelQuotes (email, gallons, address, deliveryDate, pricePerGallon) VALUES (?, ?, ?, ?, ?)', [email, gallons, address, deliveryDate, pricePerGallon], function(error, results, fields) {
+    if (error) throw error;
+    console.log('Fuel quote inserted into database');
+    res.json({ message: 'Fuel quote inserted into database' });
+  });
 });
 
 // New route to display user inputs as JSON
