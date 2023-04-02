@@ -3,10 +3,13 @@ const router = express.Router();
 const mysql = require('mysql');
 const connection = require('../connection')
 
+
+
 // POST request handler for fuel quotes
 router.post('/', (req, res) => {
   console.log('Inside fuelQuote post request handler');
-  const { email, gallons, address, deliveryDate, pricePerGallon } = req.body;
+  const {gallons, address, deliveryDate, pricePerGallon } = req.body;
+  const { email } = req.query;
 
   console.log('User inputs:', req.body);
   
@@ -17,7 +20,8 @@ router.post('/', (req, res) => {
     return;
   }
 
-  connection.query('INSERT INTO fuelQuotes (email, gallons, address, deliveryDate, pricePerGallon) VALUES (?, ?, ?, ?, ?)', [email, gallons, address, deliveryDate, pricePerGallon], function(error, results, fields) {
+  
+  connection.query('INSERT INTO fuelQuotes (email, gallons, address, deliveryDate, pricePerGallon) VALUES (?, ?, ?, ?, ?)', [email, gallons, address,deliveryDate, pricePerGallon], function(error, results, fields) {
     if (error) throw error;
     console.log('Fuel quote inserted into database');
     res.json({ message: 'Fuel quote inserted into database' });
