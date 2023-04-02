@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from 'react-router-dom';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -9,6 +9,21 @@ export const FuelQuote = (props) => {
   const [deliveryDate, setDeliveryDate] = useState(new Date());
   const [pricePerGallon, setPricePerGallon] = useState(2.5); // default price per gallon
   const [estimatedCost, setEstimatedCost] = useState(0);
+
+  const location = useLocation();
+    const [names, setData] = useState([])
+    const searchParams = new URLSearchParams(location.search);
+    const email = searchParams.get('email');
+    
+
+    const getBodyData = async() => {
+        const response = await fetch(`http://localhost:8800/ProfileManagement?email=${email}`);
+        response.json().then((res) => setData(res));
+    };
+
+   useEffect(()=>{
+    getBodyData();
+   }, []);
 
   const handleGallonsChange = (event) => {
     const value = event.target.value;
@@ -50,8 +65,9 @@ export const FuelQuote = (props) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          email: email,
           gallons: Number(gallons),
-          address: address,
+          address: names.address1,
           deliveryDate: deliveryDate.toISOString(),
           pricePerGallon: pricePerGallon,
         }),
@@ -84,7 +100,7 @@ export const FuelQuote = (props) => {
           type="text"
           id="address"
           name="address"
-          value={address}
+          value={names.address1 + ", " + names.city + ", " + names.state + ", " + names.zipcode}
           onChange={handleAddressChange}
           maxLength="100"
         />
@@ -111,7 +127,7 @@ export const FuelQuote = (props) => {
       <button type="submit">Get Quote</button>
       <br />
       <br />
-      <Link to="/userprofile">Go Back</Link>
+      <Link to={`/userprofile?email=${email}`}>Go Back</Link>
       </form>
     </div>
   );

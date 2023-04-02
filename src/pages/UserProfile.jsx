@@ -50,10 +50,10 @@ export const UserProfile = (props) => {
   <button className="link-btn">Edit Profile</button>
 </Link>
 
-                <Link to="/FuelQuote">
+                <Link to={`/fuelquote?email=${email}`}>
                     <button className="link-btn" >Go to Fuel Quotes</button>
                 </Link>
-                <Link to="/fuelquotehistory">
+                <Link to={`/fuelquotehistory?email=${email}`}>
                     <button className="link-btn" >View Past Fuel Quotes</button>
                 </Link>
                 <Link to="/">

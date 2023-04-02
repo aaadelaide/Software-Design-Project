@@ -13,6 +13,7 @@ router.post('/', (req, res) => {
   // Check for missing required fields
   if (!email || !gallons || !address || !deliveryDate || !pricePerGallon) {
     res.status(400).json({ error: 'Missing required fields' });
+    console.log('missing a variable');
     return;
   }
 

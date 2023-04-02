@@ -1,9 +1,13 @@
 import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export const FuelQuoteHistory = (props) => {
     const [historyRecords, setHistoryRecords] = useState([]);
+
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const email = searchParams.get('email');
 
     useEffect(() => {
         fetch('http://localhost:8800/fuelquotehistory')
@@ -37,7 +41,7 @@ export const FuelQuoteHistory = (props) => {
                     ))}
                 </tbody>
             </table> 
-            <Link to="/userprofile">
+            <Link to={`/userprofile?email=${email}`}>
                 <button className="link-btn">Back</button>
             </Link>
         </div>
