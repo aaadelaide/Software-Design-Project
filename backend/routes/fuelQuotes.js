@@ -8,9 +8,10 @@ const connection = require('../connection')
 // POST request handler for fuel quotes
 router.post('/', (req, res) => {
   console.log('Inside fuelQuote post request handler');
-  const {gallons, address, deliveryDate, pricePerGallon } = req.body;
-  const email = req.query.email;
-
+  const {gallons, address, pricePerGallon } = req.body;
+  const email = req.body.email;
+  const deliveryDate = new Date(req.body.deliveryDate);
+  const sqlDate = deliveryDate.toISOString().split('T')[0];
   console.log('User inputs:', req.body);
   
   // Check for missing required fields
@@ -21,7 +22,7 @@ router.post('/', (req, res) => {
   }
 
   
-  connection.query('INSERT INTO fuelQuotes (email, gallons, address, deliveryDate, pricePerGallon) VALUES (?, ?, ?, ?, ?)', [email, gallons, address,deliveryDate, pricePerGallon], function(error, results, fields) {
+  connection.query('INSERT INTO fuelQuotes (email, gallons, address, deliveryDate, pricePerGallon) VALUES (?, ?, ?, DATE_FORMAT(?, "%Y-%m-%d"), ?)', [email, gallons, address,sqlDate, pricePerGallon], function(error, results, fields) {
     if (error) throw error;
     console.log('Fuel quote inserted into database');
     res.json({ message: 'Fuel quote inserted into database' });

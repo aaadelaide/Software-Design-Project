@@ -57,6 +57,7 @@ export const FuelQuote = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const formattedDeliveryDate = deliveryDate.toLocaleDateString('en-US');
     console.log('User inputs:', { gallons, address, deliveryDate, pricePerGallon });
     try {
       const response = await fetch('http://localhost:8800/fuelQuotes', {
@@ -68,7 +69,7 @@ export const FuelQuote = (props) => {
           email: email,
           gallons: Number(gallons),
           address: names.address1,
-          deliveryDate: deliveryDate.toISOString(),
+          deliveryDate: formattedDeliveryDate,
           pricePerGallon: pricePerGallon,
         }),
       });
