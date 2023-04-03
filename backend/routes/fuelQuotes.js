@@ -20,14 +20,14 @@ router.post('/', (req, res) => {
     console.log('missing a variable');
     return;
   }else{
-    res.status(200).json({ message: 'Fuel quote inserted into database' });
+    connection.query('INSERT INTO fuelQuotes (email, gallons, address, deliveryDate, pricePerGallon) VALUES (?, ?, ?, DATE_FORMAT(?, "%Y-%m-%d"), ?)', [email, gallons, address,sqlDate, pricePerGallon], function(error, results, fields) {
+      if (error) throw error;
+      console.log('Fuel quote inserted into database');
+      res.status(200).json({ message: 'Fuel quote inserted into database' });
+    });
   }
 
   
-  connection.query('INSERT INTO fuelQuotes (email, gallons, address, deliveryDate, pricePerGallon) VALUES (?, ?, ?, DATE_FORMAT(?, "%Y-%m-%d"), ?)', [email, gallons, address,sqlDate, pricePerGallon], function(error, results, fields) {
-    if (error) throw error;
-    console.log('Fuel quote inserted into database');
-  });
 });
 
 // New route to display user inputs as JSON
