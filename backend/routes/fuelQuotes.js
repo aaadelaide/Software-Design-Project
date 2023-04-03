@@ -12,20 +12,21 @@ router.post('/', (req, res) => {
   const email = req.body.email;
   const deliveryDate = new Date(req.body.deliveryDate);
   const sqlDate = deliveryDate.toISOString().split('T')[0];
-  console.log('User inputs:', req.body);
+  // console.log('User inputs:', req.body);
   
   // Check for missing required fields
-  if (!email || !gallons || !address || !deliveryDate || !pricePerGallon) {
+  if (!email || !gallons || !address || !sqlDate || !pricePerGallon) {
     res.status(400).json({ error: 'Missing required fields' });
     console.log('missing a variable');
     return;
+  }else{
+    res.status(200).json({ message: 'Fuel quote inserted into database' });
   }
 
   
   connection.query('INSERT INTO fuelQuotes (email, gallons, address, deliveryDate, pricePerGallon) VALUES (?, ?, ?, DATE_FORMAT(?, "%Y-%m-%d"), ?)', [email, gallons, address,sqlDate, pricePerGallon], function(error, results, fields) {
     if (error) throw error;
     console.log('Fuel quote inserted into database');
-    res.json({ message: 'Fuel quote inserted into database' });
   });
 });
 

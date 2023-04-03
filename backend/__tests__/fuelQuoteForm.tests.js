@@ -2,8 +2,8 @@ const request = require('supertest');
 const express = require('express');
 const bodyParser = require('body-parser');
 const fuelQuotesRouter = require('../routes/fuelQuotes');
-
 const app = express();
+
 app.use(bodyParser.json());
 app.use('/fuelQuotes', fuelQuotesRouter);
 
@@ -13,6 +13,7 @@ describe('fuelQuotesRouter', () => {
       const res = await request(app)
         .post('/fuelQuotes')
         .send({
+          email: 'noah@gmail.com',
           gallons: 100,
           address: '123 Main St',
           deliveryDate: '2023-04-01',
@@ -27,6 +28,7 @@ describe('fuelQuotesRouter', () => {
       const res = await request(app)
         .post('/fuelQuotes')
         .send({
+          email: 'noah@gmail.com',
           gallons: 100,
           address: '123 Main St',
           pricePerGallon: 2.50
@@ -42,6 +44,7 @@ describe('fuelQuotesRouter', () => {
       const res = await request(app)
         .get('/fuelQuotes')
         .send({
+          email: 'noah@gmail.com',
           gallons: 100,
           address: '123 Main St',
           deliveryDate: '2023-04-01',
@@ -50,6 +53,7 @@ describe('fuelQuotesRouter', () => {
 
       expect(res.statusCode).toEqual(200);
       expect(res.body).toEqual({
+        email: 'noah@gmail.com',
         gallons: 100,
         address: '123 Main St',
         deliveryDate: '2023-04-01',
