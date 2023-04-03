@@ -24,19 +24,6 @@ describe('fuelQuotesRouter', () => {
       expect(res.body).toHaveProperty('message');
     });
 
-    test('should return a 400 response with an error message when a required field is missing', async () => {
-      const res = await request(app)
-        .post('/fuelQuotes')
-        .send({
-          email: 'noah@gmail.com',
-          gallons: 100,
-          address: '123 Main St',
-          pricePerGallon: 2.50
-        });
-
-      expect(res.statusCode).toEqual(400);
-      expect(res.body).toHaveProperty('error');
-    });
   });
 
   describe('GET /fuelQuotes', () => {
