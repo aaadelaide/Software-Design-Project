@@ -113,9 +113,9 @@ describe('GET /', () => {
         state: 'CA',
         zipcode: '77006',
         ValidateCheck: true,
-        email: 'gabrielHAaSSAHgonzalez@gmail.com',
+        email: 'gabrielPBgonzalez@gmail.com',
       });
-    const res = await request(app).get('/?email=gabrielBgonzalez@gmail.com');
+    const res = await request(app).get('/?email=gabrielPBgonzalez@gmail.com');
     expect(res.statusCode).toEqual(200);
     expect(res.body).toEqual({
       message: 'defined',
