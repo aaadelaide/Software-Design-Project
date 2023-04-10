@@ -103,7 +103,7 @@ export const FuelQuote = (props) => {
           name="address"
           value={names.address1 + ", " + names.city + ", " + names.state + ", " + names.zipcode}
           onChange={handleAddressChange}
-          maxLength="100"
+          maxLength="100"  
         />
         <br />
         <label htmlFor="deliveryDate">Delivery Date:</label>
