@@ -80,6 +80,24 @@ export const FuelQuote = (props) => {
       console.error('Error:', error);
     }
   };
+
+  const handlePrice = async (event) => {
+  console.log("in handle price");
+    // Send the data to the backend
+    const response = await fetch('http://localhost:8800/pricingModule', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email
+      })
+    });
+  
+    // Handle the response from the backend
+    const data = await response.json();
+    console.log(data);
+  }
   
 
   return (
@@ -126,6 +144,7 @@ export const FuelQuote = (props) => {
       </div>
       <br />
       <button type="submit">Get Quote</button>
+      <button type="button" onClick={handlePrice}>Calculate Price</button>
       <br />
       <br />
       <Link to={`/userprofile?email=${email}`}>Go Back</Link>
