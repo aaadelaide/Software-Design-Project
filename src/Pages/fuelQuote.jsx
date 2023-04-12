@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from 'react-router-dom';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Pricing from "../modules/pricingModule";
 
 export const FuelQuote = (props) => {
   const [gallons, setGallons] = useState(0);
   const [address, setAddress] = useState("");
   const [deliveryDate, setDeliveryDate] = useState(new Date());
-  const [pricePerGallon, setPricePerGallon] = useState(2.5); // default price per gallon
-  const [estimatedCost, setEstimatedCost] = useState(0);
+  let [pricePerGallon, setPricePerGallon] = useState(0); // default price per gallon
+  let [estimatedCost, setEstimatedCost] = useState(0);
+  
 
   const location = useLocation();
     const [names, setData] = useState([])
@@ -45,15 +47,10 @@ export const FuelQuote = (props) => {
   useEffect(() => {
     // simulate a network request to get the actual price per gallon based on the user's location and other factors
     setTimeout(() => {
-      const newPricePerGallon = 0; // replace with actual price per gallon
-      setPricePerGallon(newPricePerGallon);
+      setPricePerGallon(pricePerGallon);
+      setEstimatedCost(estimatedCost);
     }, 1000);
   }, []);
-
-  useEffect(() => {
-    const newEstimatedCost = 0;
-    setEstimatedCost(newEstimatedCost);
-  }, [gallons, pricePerGallon]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -95,8 +92,17 @@ export const FuelQuote = (props) => {
     });
   
     // Handle the response from the backend
+    
     const data = await response.json();
     console.log(data);
+    const {ppGal, roundedTotal}  = Pricing(gallons, data[0].state, data.length);
+
+    console.log(ppGal);
+    console.log(roundedTotal);
+    
+    setPricePerGallon(ppGal);
+    setEstimatedCost(roundedTotal)
+    //console.log(data);
   }
   
 
@@ -140,11 +146,11 @@ export const FuelQuote = (props) => {
       <br />
       <div className="price-per-gallon-container">
         <label>Estimated Total:</label>
-        <label className="price-per-gallon-label">${estimatedCost.toFixed(2)}</label>
+        <label className="price-per-gallon-label">${estimatedCost}</label>
       </div>
       <br />
-      <button type="submit">Get Quote</button>
-      <button type="button" onClick={handlePrice}>Calculate Price</button>
+      <button type="button" onClick={handlePrice}>Get Quote</button>
+      <button type="submit">Submit Quote</button>
       <br />
       <br />
       <Link to={`/userprofile?email=${email}`}>Go Back</Link>
