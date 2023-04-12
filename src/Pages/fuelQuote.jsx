@@ -45,13 +45,13 @@ export const FuelQuote = (props) => {
   useEffect(() => {
     // simulate a network request to get the actual price per gallon based on the user's location and other factors
     setTimeout(() => {
-      const newPricePerGallon = 2.75; // replace with actual price per gallon
+      const newPricePerGallon = 0; // replace with actual price per gallon
       setPricePerGallon(newPricePerGallon);
     }, 1000);
   }, []);
 
   useEffect(() => {
-    const newEstimatedCost = gallons * pricePerGallon;
+    const newEstimatedCost = 0;
     setEstimatedCost(newEstimatedCost);
   }, [gallons, pricePerGallon]);
 
@@ -90,7 +90,8 @@ export const FuelQuote = (props) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: email
+        email: email,
+        gallons: gallons
       })
     });
   
