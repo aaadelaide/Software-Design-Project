@@ -84,8 +84,8 @@ export const FuelQuote = (props) => {
   const handlePrice = async (event) => {
   console.log("in handle price");
     // Send the data to the backend
-    const response = await fetch('http://localhost:8800/pricingModule', {
-      method: 'GET',
+    const response = await fetch(`http://localhost:8800/pricingModule?email=${email}`, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
