@@ -25,7 +25,7 @@ router.post('/', (req, res) => {
     // })
 
     connection.query(`SELECT ClientInformation.email, ClientInformation.state, fuelQuotes.quoteId FROM ClientInformation 
-	INNER JOIN fuelQuotes on ClientInformation.email = fuelQuotes.email where ClientInformation.email = '${email}'`, function(error, history){
+	INNER JOIN fuelQuotes on ClientInformation.email = fuelQuotes.email where ClientInformation.email = '${email}' ORDER BY fuelQuotes.quoteId DESC limit 0,1`, function(error, history){
         if (error) throw error;
         if (history.length == 0) {
             pricingHistory = 0;
