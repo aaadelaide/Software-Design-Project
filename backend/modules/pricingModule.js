@@ -31,6 +31,17 @@ router.post('/', (req, res) => {
             console.log(results);
         }
     })
+
+    connection.query(`Select * From FuelQuotes  WHERE email = '${email}'`, function(error, results){
+        if (error) throw error;
+        if (results.length == 0) {
+            res.json({message: 'invalid'});
+            console.log('no user found');
+        }else{
+            console.log(results);
+        }
+    })
+
 });
 
 module.exports = router;
