@@ -4,6 +4,7 @@ const authRouter = require('./routes/auth');
 const createAcctRouter = require('./routes/createAcct');
 const editAcctRouter = require('./routes/ProfileManagement');
 const fuelQuoteHistoryRouter = require('./routes/fuelQuoteHistory')
+const pricingModuleRouter = require('./modules/pricingModule')
 
 const app = express();
 
@@ -21,6 +22,8 @@ app.use('/auth', authRouter);
 app.use('/createAcct', createAcctRouter);
 app.use('/ProfileManagement',editAcctRouter);
 app.use('/fuelquotehistory', fuelQuoteHistoryRouter)
+app.use('/pricingModule', pricingModuleRouter)
+
 
 // app.get('/auth', (req, res) => {
 //   res.sendStatus(200);
