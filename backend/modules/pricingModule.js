@@ -14,17 +14,18 @@ router.post('/', (req, res) => {
     }
 
 
-    connection.query(`Select state From ClientInformation  WHERE email = '${email}'`, function(error, results){
-        if (error) throw error;
-        if (results.length == 0) {
-            res.json({message: 'invalid'});
-            console.log('no user found');
-        }else{
-            res.status(200).json(results);
-        }
-    })
+    // connection.query(`Select state From ClientInformation  WHERE email = '${email}'`, function(error, results){
+    //     if (error) throw error;
+    //     if (results.length == 0) {
+    //         res.json({message: 'invalid'});
+    //         console.log('no user found');
+    //     }else{
+    //         res.status(200).json(results);
+    //     }
+    // })
 
-    connection.query(`Select * From fuelQuotes  WHERE email = '${email}'`, function(error, history){
+    connection.query(`SELECT ClientInformation.email, ClientInformation.state, fuelQuotes.quoteId FROM ClientInformation 
+	INNER JOIN fuelQuotes on ClientInformation.email = fuelQuotes.email where ClientInformation.email = '${email}'`, function(error, history){
         if (error) throw error;
         if (history.length == 0) {
             pricingHistory = 0;
@@ -38,3 +39,4 @@ router.post('/', (req, res) => {
 
 
 module.exports = router;
+
