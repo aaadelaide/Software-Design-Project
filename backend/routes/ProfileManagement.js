@@ -52,21 +52,32 @@ router.post('/', (req, res) => {
     if (ValidateCheck == true && innerValidation == true) {
         msg = 'valid';
         console.log(msg);
-
-        // Here we will execute the insert statement to add user info to the database
-        const query = `INSERT INTO ClientInformation (firstname, lastname, address1, address2, city, state, zipcode, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-        const values = [firstname, lastname, address1, address2, city, state, zipcode, email];        
-
-        myconnection.query(query, values, (err, result) => {
-            if (err) throw err;
-            console.log('User info added to database:', result);
-        });
-    } else {
-        msg = 'no good'
-        console.log(msg);
-    }
-    res.json({message: msg});
-});
+        myconnection.query(`SELECT * FROM ClientInformation WHERE email = ?`, [email], function(error, results, fields){
+            if (error) throw error;
+            if(results.length === 0){
+              const query = `INSERT INTO ClientInformation (firstname, lastname, address1, address2, city, state, zipcode, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+              const values = [firstname, lastname, address1, address2, city, state, zipcode, email];
+      
+              myconnection.query(query, values, (err, result) => {
+                if (err) throw err;
+                console.log('User info added:', result);
+              });
+            } else {
+              const query = `UPDATE ClientInformation SET firstname=?, lastname=?, address1=?, address2=?, city=?, state=?, zipcode=? WHERE email = ?`;
+              const values = [firstname, lastname, address1, address2, city, state, zipcode, email];
+      
+              myconnection.query(query, values, (err, result) => {
+                if (err) throw err;
+                console.log('User info updated:', result);
+              });
+            }
+          });
+        } else {
+          msg = 'no good';
+          console.log(msg);
+        }
+        res.json({message: msg});
+      });
 
 router.get('/', (req, res) => {
     const email = req.query.email;

@@ -76,6 +76,7 @@ export const FuelQuote = (props) => {
     } catch (error) {
       console.error('Error:', error);
     }
+    alert("You have sucessfully submitted a quote of: " + estimatedCost + ".");
   };
 
   const handlePrice = async (event) => {
