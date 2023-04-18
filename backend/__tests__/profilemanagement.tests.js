@@ -13,6 +13,24 @@ describe('POST /', () => {
       .post('/')
       .send({
         firstname: 'Gabriel',
+        lastname: 'Gonzalez',
+        address1: '689 Dream Street',
+        address2: '',
+        city: 'San Francisco',
+        state: 'CA',
+        zipcode: '77006',
+        ValidateCheck: true,
+        email: 'gabrielPagonzalez@gmail.com',
+      });
+    expect(res.statusCode).toEqual(200);
+    expect(res.body.message).toEqual('valid');
+  });
+
+  it('should return a 200 status code and a message and update to this info', async () => {
+    const res = await request(app)
+      .post('/')
+      .send({
+        firstname: 'Gabriel',
         lastname: 'Gonzales',
         address1: '689 Dream Street',
         address2: '',

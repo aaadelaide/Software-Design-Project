@@ -7,8 +7,6 @@ router.post('/', (req, res) => {
     // console.log('Inside the login post request handler');
     const { user, password } = req.body;
 
-    // console.log('User inputs:', req.body);
-
     if (!user || !password) {
         res.status(400).json({ error: 'Missing required fields' });
         return;
