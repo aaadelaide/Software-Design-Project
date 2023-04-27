@@ -29,6 +29,20 @@ export const ProfileManagement = (props) => {
 
     let ValidateCheck = false;
 
+
+    const [names, setData] = useState([]);
+    const getBodyData = async() => {
+      const response = await fetch(`http://localhost:8800/ProfileManagement?email=${email}`);
+      response.json().then((res) => setData(res));
+  };
+
+ useEffect(()=>{
+  getBodyData();
+ }, []);
+
+
+
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log('User inputs:', { firstname, lastname, address1, address2, city, state, zipcode, email });
@@ -39,15 +53,22 @@ export const ProfileManagement = (props) => {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                firstname: firstname,
-                lastname: lastname,
-                address1: address1,
-                address2: address2,
-                city: city,
-                state: state,
-                zipcode: zipcode,
+                firstname: names.firstname,
+                lastname: names.lastname,
+                address1: names.address1,
+                address2: names.address2,
+                city: names.city,
+                state: names.state,
+                zipcode: names.zipcode,
                 ValidateCheck: ValidateCheck,
                 email: email,
+                formIsValid_FName: formIsValid_FName,
+                formIsValid_LName: formIsValid_LName,
+                formIsValid_Addr1: formIsValid_Addr1,
+                formIsValid_Addr2 : formIsValid_Addr2,
+                formIsValid_City: formIsValid_City,
+                formIsValid_ZC : formIsValid_ZC,
+                formIsValid_State : formIsValid_State,
             }),
           });
           console.log('Response:', response);
@@ -62,16 +83,21 @@ export const ProfileManagement = (props) => {
         }
       };
 
+
+
     const handleFNameChange = (event) => {
         formIsValid_FName = true;
         const value = event.target.value;
         if (value <= 0 || value >= 50) {
           formIsValid_FName = false;
+          names.firstname=value;
           FName(value);
         } else {
+          names.firstname=value;
           FName(value);
         }
       };
+      
 
       const handleLNameChange = (event) => {
         console.log("please pleaase work");
@@ -79,9 +105,11 @@ export const ProfileManagement = (props) => {
         const value = event.target.value;
         if (value <= 0 || value >= 50) {
           formIsValid = false;
+          names.lastname = value;
           LName(value);
         } else {
           LName(value);
+          names.lastname = value;
         }
         return formIsValid;
       };
@@ -91,8 +119,10 @@ export const ProfileManagement = (props) => {
         const value = event.target.value;
         if (value <= 0 || value >= 50) {
           formIsValid = false;
+          names.address1 = value;
           Address1(value);
         } else {
+          names.address1 = value;
           Address1(value);
         }
         return formIsValid;
@@ -103,8 +133,10 @@ export const ProfileManagement = (props) => {
         if (value >= 100) {
           formIsValid = false;
           Address2(value);
+          names.address2 = value;
         } else {
           Address2(value);
+          names.address2 = value;
         }
         return formIsValid;
       };
@@ -115,8 +147,10 @@ export const ProfileManagement = (props) => {
         if (value <= 0 || value >= 100) {
           formIsValid = false;
           setCity(value);
+          names.city = value;
         } else {
           setCity(value);
+          names.city = value;
         }
         return formIsValid;
       };
@@ -127,8 +161,10 @@ export const ProfileManagement = (props) => {
         if (value <= 0) {
           formIsValid = false;
           setSt(value);
+          names.state = value;
         } else {
           setSt(value);
+          names.state = value;
         }
         return formIsValid;
       };
@@ -138,65 +174,60 @@ export const ProfileManagement = (props) => {
         const value = event.target.value;
         if (value <= 0 || value < 5 || value > 9) {
           formIsValid = false;
+          names.zipcode = value;
           setZip(value);
         } else {
           setZip(value);
+          names.zipcode = value;
         }
         return formIsValid;
       };
 
-      const [names, setData] = useState([]);
-      const getBodyData = async() => {
-        const response = await fetch(`http://localhost:8800/ProfileManagement?email=${email}`);
-        response.json().then((res) => setData(res));
-    };
-
-   useEffect(()=>{
-    getBodyData();
-   }, []);
+      
 
     return (
         <div className="profile-form-container">
             <form onSubmit={handleSubmit} className="profile-form-container">
             <h2>Profile Edit</h2>
             <label htmlFor="FName">First Name: </label>
-           <input type="text" name="FName" id="FName" value={firstname}
-                  onChange={handleFNameChange}></input>
-                  {firstname.length <= 0 ? <span style={{color:'red'}}>{"* This is a required field."}</span> : null}
-                  {firstname.length >= 50 ? <span style={{color:'red'}}>{"* This exceeds the character limit."}</span> : null}
-                  {firstname.length > 0 && firstname.length < 50 ? formIsValid_FName = true : formIsValid_FName = false}
+           <input type="text" name="FName" id="FName" value={names.firstname||""}
+                  onChange={handleFNameChange} placeholder={'Enter your first name'}></input>
+                  {names.firstname ? null : <span style={{color:'red'}}>{"* This is a required field."}</span> }
+                  {names.firstname?.length >= 50 ? <span style={{color:'red'}}>{"* This exceeds the character limit."}</span> : null}
+                  {names.firstname?.length > 0 && names.firstname?.length < 50 ? formIsValid_FName = true : formIsValid_FName = false}
 
                   <label htmlFor="LName">Last Name: </label>
-           <input type="text" name="LName" id="LName" value={lastname}
-                  onChange={handleLNameChange}></input>
-                  {lastname.length <= 0 ? <span style={{color:'red'}}>{"* This is a required field."}</span> : null}
-                  {lastname.length >= 50 ? <span style={{color:'red'}}>{"* This exceeds the character limit."}</span> : null}
-                  {lastname.length > 0 && lastname.length < 50 ? formIsValid_LName = true : formIsValid_LName = false}
+           <input type="text" name="LName" id="LName" value={names.lastname||""}
+                  onChange={handleLNameChange} placeholder={'Enter your last name'}></input>
+                  {names.lastname ? null : <span style={{color:'red'}}>{"* This is a required field."}</span> }
+                  {names.lastname?.length >= 50 ? <span style={{color:'red'}}>{"* This exceeds the character limit."}</span> : null}
+                  {names.lastname?.length > 0 && names.lastname?.length < 50 ? formIsValid_LName = true : formIsValid_LName = false}
 
                    <label htmlFor="address1">Address Line 1: </label>
-           <input type="text" name="address1" id="address1" value={address1}
-                  onChange={handleAddressChange}></input>
-                  {address1.length <= 0 ? <span style={{color:'red'}}>{"* This is a required field."}</span> : null}
-                  {address1.length >= 100 ? <span style={{color:'red'}}>{"* This exceeds the character limit."}</span> : null}
-                  {address1.length > 0 && address1.length < 100 ? formIsValid_Addr1 = true : formIsValid_Addr1 = false}
+           <input type="text" name="address1" id="address1" value={names.address1||""}
+                  onChange={handleAddressChange} placeholder={'Enter your address'}></input>
+                  {names.address1 ? null : <span style={{color:'red'}}>{"* This is a required field."}</span> }
+                  {names.address1?.length >= 100 ? <span style={{color:'red'}}>{"* This exceeds the character limit."}</span> : null}
+                  {names.address1?.length > 0 && names.address1?.length < 100 ? formIsValid_Addr1 = true : formIsValid_Addr1 = false}
 
                  <label htmlFor="address2">Address Line 2 (Optional): </label>
-           <input type="text" name="address2" id="address2" value={address2}
+           <input type="text" name="address2" id="address2" value={names.address2||""}
                   onChange={handleAddress2Change}></input>
-                  {address2.length >= 100 ? <span style={{color:'red'}}>{"* This exceeds the character limit."}</span> : formIsValid_Addr2=true}
+                  {names.address2 ? null : names.address2="" }
+                  {names.address2?.length >= 100 ? <span style={{color:'red'}}>{"* This exceeds the character limit."}</span> : formIsValid_Addr2=true}
                   
 
                     <label htmlFor="city">City: </label>
-           <input type="text" name="city" id="city" value={city}
-                  onChange={handleCityChange}></input>
-                  {city.length <= 0 ? <span style={{color:'red'}}>{"* This is a required field."}</span> : null}
-                  {city.length >= 100 ? <span style={{color:'red'}}>{"* This exceeds the character limit."}</span> : null}
-                  {city.length > 0 && city.length < 100 ? formIsValid_City = true : formIsValid_City = false}
+           <input type="text" name="city" id="city" value={names.city||""}
+                  onChange={handleCityChange} placeholder={'Enter your city'}></input>
+                  {names.city ? null : <span style={{color:'red'}}>{"* This is a required field."}</span> }
+                  {names.city?.length >= 100 ? <span style={{color:'red'}}>{"* This exceeds the character limit."}</span> : null}
+                  {names.city?.length > 0 && names.city?.length < 100 ? formIsValid_City = true : formIsValid_City = false}
              
         <label htmlFor="state">
        State
       <div>
-       <select name = "state" id="state" value={state} onChange = {handleStateChange}>
+       <select name = "state" id="state" value={names.state||""} onChange = {handleStateChange}>
         <option value =""></option>
          <option value="AL">AL</option> <option value="AK">AK</option> <option value="AZ">AZ</option>
          <option value="AR">AR</option>
@@ -248,19 +279,19 @@ export const ProfileManagement = (props) => {
          <option value="WY">WY</option>
        </select>
        </div>
-       {state.length <= 0 ? <span style={{color:'red'}}>{"* This is a required field."}</span> : formIsValid_State=true}
-
+       {names.state ? null : <span style={{color:'red'}}>{"* This is a required field."}</span> }
+       {names.state?.length > 0 ? formIsValid_State = true : formIsValid_State = false}
      </label>
 
 
 
    <label htmlFor="zipcode">Zipcode: </label>
-           <input type="text" name="zipcode" id="zipcode" value={zipcode}
-                  onChange={handleZipChange}></input>
-                  {zipcode.length <= 0 ? <span style={{color:'red'}}>{"* This is a required field."}</span> : null}
-                  {zipcode.length > 0 && zipcode.length < 5 ? <span style={{color:'red'}}>{"* The zipcode must be at least five characters."}</span> : null}
-                  {zipcode.length >9 ? <span style={{color:'red'}}>{"* This exceeds the character limit."}</span> : null}
-                  {zipcode.length > 4 && zipcode.length < 9 ? formIsValid_ZC = true : formIsValid_ZC = false}
+           <input type="text" name="zipcode" id="zipcode" value={names.zipcode||""}
+                  onChange={handleZipChange} placeholder={'Enter your zipcode'}></input>
+                  {names.zipcode ? null : <span style={{color:'red'}}>{"* This is a required field."}</span> }
+                  {names.zipcode?.length> 0 && names.zipcode?.length < 5 ? <span style={{color:'red'}}>{"* The zipcode must be at least five characters."}</span> : null}
+                  {names.zipcode?.length >9 ? <span style={{color:'red'}}>{"* This exceeds the character limit."}</span> : null}
+                  {names.zipcode?.length > 4 && names.zipcode?.length < 9 ? formIsValid_ZC = true : formIsValid_ZC = false}
 
                   {ValidateCheck = true ? formIsValid_LName && formIsValid_FName && formIsValid_Addr1 && formIsValid_Addr2 && formIsValid_City && formIsValid_State && formIsValid_ZC : false}
 

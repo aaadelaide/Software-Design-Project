@@ -18,7 +18,9 @@ export const UserProfile = (props) => {
 
    useEffect(()=>{
     getBodyData();
-   }, []);
+    const intervalId = setInterval(getBodyData, 5000); // Fetch data every 5 seconds
+    return () => clearInterval(intervalId);
+  }, [email]);
 
     if(names.message == "undefined"){
         navigate(`/ProfileManagement?email=${email}`);
