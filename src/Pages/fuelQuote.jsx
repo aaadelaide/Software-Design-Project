@@ -96,13 +96,25 @@ export const FuelQuote = (props) => {
     
     const data = await response.json();
     console.log(data);
-    const {ppGal, roundedTotal}  = Pricing(gallons, data[0].state, data.length);
-
-    console.log(ppGal);
-    console.log(roundedTotal);
+    if(data === 0){
+      const {ppGal, roundedTotal}  = Pricing(gallons, names.state, 0);
+      console.log(ppGal);
+      console.log(roundedTotal);
+      
+      
+      setPricePerGallon(ppGal);
+      setEstimatedCost(roundedTotal)
+    }else{
+      const {ppGal, roundedTotal}  = Pricing(gallons, data[0].state, data.length);
+      console.log(ppGal);
+      console.log(roundedTotal);
+      
+      
+      setPricePerGallon(ppGal);
+      setEstimatedCost(roundedTotal)
+    }
     
-    setPricePerGallon(ppGal);
-    setEstimatedCost(roundedTotal)
+    
     //console.log(data);
   }
   

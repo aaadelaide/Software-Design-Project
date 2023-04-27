@@ -29,6 +29,7 @@ router.post('/', (req, res) => {
         if (error) throw error;
         if (history.length == 0) {
             pricingHistory = 0;
+            res.status(200).json(0);
         }else{
             console.log(history);
             res.status(200).json(history);
