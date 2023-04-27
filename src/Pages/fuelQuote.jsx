@@ -65,7 +65,7 @@ export const FuelQuote = (props) => {
         body: JSON.stringify({
           email: email,
           gallons: Number(gallons),
-          address: names.address1,
+          address: names.state,
           deliveryDate: formattedDeliveryDate,
           pricePerGallon: pricePerGallon,
         }),
