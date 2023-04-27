@@ -20,7 +20,7 @@ describe('POST /', () => {
         state: 'CA',
         zipcode: '77006',
         ValidateCheck: true,
-        email: 'gabrielPagonzalez@gmail.com',
+        email: 'gabrielPagonzalez2@gmail.com',
       });
     expect(res.statusCode).toEqual(200);
     expect(res.body.message).toEqual('valid');
@@ -44,7 +44,7 @@ describe('POST /', () => {
     expect(res.body.message).toEqual('valid');
   });
 
-  it('should return a 200 statuss code', async () =>{
+  it('should return a 200 status code', async () =>{
     const res = await request(app)
     .post('/')
     .send({
@@ -56,7 +56,7 @@ describe('POST /', () => {
       state: 'CA',
       zipcode: '123',
       ValidateCheck: true,
-      email: 'gabrielLdwLLgonzalez@gmail.com',
+      email: 'gabrielLdwLLgozalez2@gmail.com',
     });
   expect(res.statusCode).toBe(200);
   expect(res.body.message).toBe('no good');
